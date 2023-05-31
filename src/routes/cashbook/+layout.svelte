@@ -19,8 +19,8 @@
 				{#each time as idx, index}
 					<div
 						class="card card-hover cashbook-card income"
-						class:income={index % 2 == 0}
-						class:expend={index % 2 != 0}
+						class:income={index % 3 == 0}
+						class:expend={index % 3 != 0}
 					>
 						<div class=" grid grid-cols-2 grid-rows-4 gap-1 mt-2">
 							<div class="  row-span-3 money line">￥100.0</div>
