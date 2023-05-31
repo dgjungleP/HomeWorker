@@ -14,13 +14,15 @@
 	<Tab bind:group={cashbookType} name="consume" value={'consume'}>消费</Tab>
 	<!-- Tab Panels --->
 	<svelte:fragment slot="panel">
-		<div class=" card p-4 grid grid-cols-10 variant-ghost h-full grid-rows-5 gap-3">
+		<div class=" card px-4 py-6 grid grid-cols-10 variant-ghost h-full grid-rows-5 gap-6">
 			{#if cashbookType === 'favor'}
 				{#each time as idx}
-					<div class="card p-4 card-hover h-full">Basic</div>
+					<div class="card card-hover cashbook-card">Basic</div>
 				{/each}
 			{:else if cashbookType === 'consume'}
-				(tab panel 2 contents)
+				{#each time as idx}
+					<div class="card card-hover cashbook-card">Basic</div>
+				{/each}
 			{/if}
 		</div>
 	</svelte:fragment>

@@ -2,10 +2,34 @@
 * {
 	@apply box-border;
 }
+
 html,
 body {
 	@apply h-full overflow-hidden;
 }
 body {
 	@apply bg-surface-50-900-token;
+}
+
+.cashbook-card {
+	@apply p-4  h-full relative before:content-[''] before:w-8 before:h-6 before:bg-orange-400 before:inline before:absolute before:-top-2 
+	after:w-8 after:h-2   after:inline  after:absolute after:-top-4 after:left-4;
+}
+
+.cashbook-card::after {
+	background: linear-gradient(
+			-45deg,
+			transparent 33.33%,
+			rgb(251 146 60) 33.33%,
+			rgb(251 146 60) 66.66%,
+			transparent 66.66%
+		),
+		linear-gradient(
+			45deg,
+			transparent 33.33%,
+			rgb(251 146 60) 33.33%,
+			rgb(251 146 60) 66.66%,
+			transparent 66.66%
+		);
+	background-size: 0.5rem 1rem;
 }
