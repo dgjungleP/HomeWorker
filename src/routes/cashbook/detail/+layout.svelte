@@ -17,6 +17,7 @@
 	}
 	function handleBack(e: MouseEvent) {
 		e.stopPropagation();
+		location.href = '/cashbook';
 	}
 	let clickAction: string = '';
 </script>
