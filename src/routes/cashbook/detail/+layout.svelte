@@ -3,8 +3,8 @@
 	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
 	import { fade } from 'svelte/transition';
 	export let data: PageData;
-	$: showUtilList = true;
-	$: hoverHold = true;
+	$: showUtilList = false;
+	$: hoverHold = false;
 	function handleUtilClick() {
 		showUtilList = !showUtilList;
 		hoverHold = !hoverHold;
@@ -24,7 +24,7 @@
 <!-- <div> -->
 <div
 	tabindex="-1"
-	class=" fixed z-50 bottom-20 right-20 min-w-[150px] flex flex-col justify-center items-center"
+	class=" fixed z-50 min-w-[150px] flex flex-col justify-center items-center bottom-32 right-12"
 	on:blur={closeUitl}
 >
 	{#if showUtilList}
