@@ -25,7 +25,7 @@
 				>
 				<AppRailAnchor
 					href="/cashbook"
-					selected={$page.url.pathname === '/cashbook'}
+					selected={$page.url.pathname.startsWith('/cashbook')}
 					bind:group={currentTile}
 					name="CashBook"
 					value={'cashbook'}>记账本</AppRailAnchor
