@@ -31,6 +31,13 @@
 					value={'cashbook'}>记账本</AppRailAnchor
 				>
 				<AppRailAnchor
+					href="/property"
+					selected={$page.url.pathname.startsWith('/property')}
+					bind:group={currentTile}
+					name="Property"
+					value={'property'}>资产</AppRailAnchor
+				>
+				<AppRailAnchor
 					href="/about"
 					selected={$page.url.pathname === '/about'}
 					bind:group={currentTile}
@@ -45,6 +52,6 @@
 	<!-- Router Slot -->
 	<slot />
 	<!-- ---- / ---- -->
-	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
+	<!-- <svelte:fragment slot="pageFooter">Page Footer</svelte:fragment> -->
 	<!-- (footer) -->
 </AppShell>

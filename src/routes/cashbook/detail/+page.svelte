@@ -12,7 +12,7 @@
 
 <div on:click on:keydown>
 	<!-- svelte-ignore empty-block -->
-	<TabGroup regionPanel="p-4 flex-[1] pt-0 pb-2  " class=" flex flex-col h-full  ">
+	<TabGroup regionPanel="p-4 flex-[1] pt-0 pb-2  " class=" flex flex-col h-screen  ">
 		<Tab bind:group={$cashbookType} name="favor" value={'favor'}>人情</Tab>
 		<Tab bind:group={$cashbookType} name="consume" value={'consume'}>消费</Tab>
 		<!-- Tab Panels --->
