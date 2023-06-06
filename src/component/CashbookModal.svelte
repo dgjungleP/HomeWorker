@@ -5,14 +5,14 @@
 
 	// Stores
 	import { modalStore } from '@skeletonlabs/skeleton';
-
 	// Form Data
 	const cashData = {
 		amount: '',
 		time: '',
 		user: '',
 		type: '',
-		reason: ''
+		reason: '',
+		description: ''
 	};
 
 	// We've created a custom submit function to pass the response and close the modal.
@@ -37,17 +37,17 @@
 	// Base Classes
 	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
 	const cHeader = 'text-2xl font-bold';
-	const cForm = 'border border-surface-500 p-4 space-y-4 rounded-container-token';
+	const cForm = 'border border-surface-500 p-4 space-y-4 rounded-container-token ';
 	console.log(parent);
 </script>
 
 <!-- @component This example creates a simple form modal. -->
 
 {#if $modalStore[0]}
-	<div class="modal-example-form {cBase}">
+	<div class=" {cBase}">
 		<header class={cHeader}>{'新增' + getTitle($modalStore[0].value.type)}</header>
 		<!-- Enable for debugging: -->
-		<form class="modal-form {cForm}">
+		<form class={cForm}>
 			<label class="label">
 				<span>相关人员</span>
 				<input class="input" type="text" bind:value={cashData.user} placeholder="请输入相关人员" />
@@ -73,8 +73,20 @@
 				</select>
 			</label>
 			<label class="label">
+				<span>分类</span>
+				<select class="select" bind:value={cashData.reason}>
+					<option value="income">家用</option>
+					<option value="expend">外用</option>
+				</select>
+			</label>
+			<label class="label">
 				<span>说明</span>
-				<input class="input" type="text" bind:value={cashData.reason} placeholder="请输入说明" />
+				<input
+					class="input"
+					type="text"
+					bind:value={cashData.description}
+					placeholder="请输入说明"
+				/>
 			</label>
 		</form>
 		<!-- prettier-ignore -->
