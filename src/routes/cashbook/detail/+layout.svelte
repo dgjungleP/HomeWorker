@@ -1,10 +1,24 @@
 <script lang="ts">
 	import type { PageData } from '../../cashbook/detail/$types';
-	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+	import {
+		ListBox,
+		ListBoxItem,
+		Modal,
+		type ModalComponent,
+		type ModalSettings
+	} from '@skeletonlabs/skeleton';
 	import { fade } from 'svelte/transition';
+	import { setContext } from 'svelte';
+	import { writable, type Writable } from 'svelte/store';
+	import { modalStore } from '@skeletonlabs/skeleton';
+	import CashbookModal from '../../../component/CashbookModal.svelte';
 	export let data: PageData;
+
 	$: showUtilList = false;
 	$: hoverHold = false;
+	const type: Writable<string> = writable('favor');
+
+	setContext('type', type);
 	function handleUtilClick() {
 		showUtilList = !showUtilList;
 		hoverHold = !hoverHold;
@@ -18,6 +32,21 @@
 	function handleBack(e: MouseEvent) {
 		e.stopPropagation();
 		location.href = '/cashbook';
+	}
+
+	const modalComponent: ModalComponent = {
+		ref: CashbookModal
+	};
+
+	function handleAdd() {
+		const modal: ModalSettings = {
+			type: 'component',
+			// Pass the component directly:
+			component: modalComponent,
+			value: { type: $type }
+		};
+		modalStore.trigger(modal);
+		console.log($type);
 	}
 	let clickAction: string = '';
 </script>
@@ -37,7 +66,9 @@
 				<ListBoxItem bind:group={clickAction} name="medium" value="back" on:click={handleBack}
 					>返回上一级</ListBoxItem
 				>
-				<ListBoxItem bind:group={clickAction} name="medium" value="add">新增账本信息</ListBoxItem>
+				<ListBoxItem bind:group={clickAction} name="medium" value="add" on:click={handleAdd}
+					>新增账本信息</ListBoxItem
+				>
 			</ListBox>
 		</div>
 	{/if}
@@ -52,4 +83,7 @@
 		+
 	</div>
 </div>
+
+<Modal />
+
 <slot />

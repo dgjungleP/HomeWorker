@@ -2,20 +2,23 @@
 	import type { PageData } from './$types';
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import type { CashbookHolder } from './+page.server';
+	import { getContext } from 'svelte';
+	import type { Writable } from 'svelte/store';
 	export let data: PageData;
-	let cashbookType: string = 'favor';
+	$: cashbookType = getContext<Writable<string>>('type');
+
 	const pageData: CashbookHolder = data.pageData;
 </script>
 
 <div on:click on:keydown>
 	<!-- svelte-ignore empty-block -->
 	<TabGroup regionPanel="p-4 flex-[1] pt-0 pb-2  " class=" flex flex-col h-full  ">
-		<Tab bind:group={cashbookType} name="favor" value={'favor'}>人情</Tab>
-		<Tab bind:group={cashbookType} name="consume" value={'consume'}>消费</Tab>
+		<Tab bind:group={$cashbookType} name="favor" value={'favor'}>人情</Tab>
+		<Tab bind:group={$cashbookType} name="consume" value={'consume'}>消费</Tab>
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
 			<div class=" card px-4 py-6 grid grid-cols-6 variant-ghost h-full grid-rows-5 gap-6">
-				{#each pageData[cashbookType] as idx}
+				{#each pageData[$cashbookType] as idx}
 					<div
 						class="card card-hover cashbook-card"
 						class:income={idx.type == 'income'}
