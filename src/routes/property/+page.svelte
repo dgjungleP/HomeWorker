@@ -11,8 +11,10 @@
 	import ImprestModal from '../../component/ImprestModal.svelte';
 	import IncomeModal from '../../component/IncomeModal.svelte';
 	import DepositModal from '../../component/DepositModal.svelte';
+	import { each } from 'svelte/internal';
 
 	export let data: PageData;
+	const pageData = data.detailData;
 	const propertyModalRegistry: Record<string, ModalComponent> = {
 		insure: { ref: InsureModal },
 		imprest: { ref: ImprestModal },
@@ -30,137 +32,77 @@
 		modalStore.trigger(modal);
 	}
 	const baseCard = 'card property-card card-hover';
+	const baseList = 'list h-5/6 overflow-y-auto mt-2';
 </script>
 
-<div class=" grid grid-cols-5 grid-rows-5 gap-2 p-2 h-screen">
-	<div class=" {baseCard}" on:click={() => handleModal('insure')} on:keydown>
+<div class=" grid grid-cols-7 grid-rows-5 gap-2 p-2 h-screen">
+	<div class=" {baseCard} col-span-2" on:click={() => handleModal('insure')} on:keydown>
 		<span class=" h-1/6">保险</span>
-		<dl class="list-dl h-5/6 overflow-y-auto">
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
+		<dl class={baseList}>
+			{#each pageData.insure as item}
+				<div class=" py-0 flex gap-4 px-2">
+					<dt>公司: {item.company}</dt>
+					<dd>保单号: {item.insuerNum}</dd>
+					<dd>保险金: {item.value}</dd>
+				</div>
+			{:else}
+				<dt>There has no insure</dt>
+			{/each}
 		</dl>
 	</div>
 	<div class=" {baseCard} col-span-3 row-span-2" on:click={() => handleModal('imprest')} on:keydown>
 		<span class=" h-1/6">备用金</span>
-		<dl class="list-dl h-5/6 overflow-y-auto">
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
+		<dl class={baseList}>
+			{#each pageData.impress as item}
+				<div class=" py-0 flex gap-4 px-2">
+					<dt>用途: {item.useTo}</dt>
+					<dd>金额: {item.account}</dd>
+					<div class=" flex gap-4">
+						<span class=" font-bold">储蓄计划:</span>
+						<div>储蓄金额:{item.plan.value}</div>
+						<div>储蓄周期:{item.plan.period}/{item.plan.unit}</div>
+					</div>
+				</div>
+			{/each}
 		</dl>
 	</div>
-	<div class=" {baseCard}" on:click={() => handleModal('income')} on:keydown>
+	<div class=" {baseCard} col-span-2" on:click={() => handleModal('income')} on:keydown>
 		<span class=" h-1/6">收入</span>
-		<dl class="list-dl h-5/6 overflow-y-auto">
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
+		<dl class={baseList}>
+			{#each pageData.income as item}
+				<div class=" py-0 flex gap-4 px-2">
+					<dt>来源: {item.source}</dt>
+					<dd>金额: {item.account}</dd>
+					<dd>周期: {item.period}/{item.unit}</dd>
+				</div>
+			{/each}
 		</dl>
 	</div>
-	<div class=" {baseCard}" on:click={() => handleModal('invest')} on:keydown>
+	<div class=" {baseCard} col-span-2" on:click={() => handleModal('invest')} on:keydown>
 		<span class=" h-1/6">投资</span>
-		<dl class="list-dl h-5/6 overflow-y-auto">
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
+		<dl class={baseList}>
+			{#each pageData.invest as item}
+				<div class=" py-0 flex gap-4 px-2">
+					<dt>类型: {item.type}</dt>
+					<dd>投入: {item.input}</dd>
+					<dd>收益: {item.income}</dd>
+				</div>
+			{/each}
 		</dl>
 	</div>
-	<div class=" {baseCard}" on:click={() => handleModal('deposit')} on:keydown>
+	<div class=" {baseCard} col-span-2" on:click={() => handleModal('deposit')} on:keydown>
 		<span class=" h-1/6">储蓄</span>
-		<dl class="list-dl h-5/6 overflow-y-auto">
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
-			<div>
-				<span class="flex-auto">
-					<dt>Title</dt>
-					<dd>Description</dd>
-				</span>
-			</div>
+		<dl class={baseList}>
+			{#each pageData.deposit as item}
+				<div class=" py-0 flex gap-4 px-2">
+					<dt>银行: {item.bank}</dt>
+					<dd>金额: {item.account}</dd>
+					<dd>备注: {item.memo}</dd>
+				</div>
+			{/each}
 		</dl>
 	</div>
-	<div class=" card property-card col-span-5 row-span-3">图表</div>
+	<div class=" card property-card col-span-7 row-span-3">图表</div>
 </div>
 
 <Modal components={propertyModalRegistry} />
