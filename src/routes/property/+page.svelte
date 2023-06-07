@@ -11,6 +11,7 @@
 	import ImprestModal from '../../component/ImprestModal.svelte';
 	import IncomeModal from '../../component/IncomeModal.svelte';
 	import DepositModal from '../../component/DepositModal.svelte';
+	import Echarts from '../../component/Echarts/Echarts.svelte';
 
 	export let data: PageData;
 	const pageData = data.detailData;
@@ -30,6 +31,169 @@
 		};
 		modalStore.trigger(modal);
 	}
+
+	const totalAssetsOption = {
+		title: {
+			text: '资产总值'
+		},
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'cross',
+				label: {
+					backgroundColor: '#6a7985'
+				}
+			}
+		},
+		legend: {
+			data: ['保险', '投资', '备用金', '储蓄']
+		},
+
+		grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+		},
+		xAxis: [
+			{
+				type: 'category',
+				boundaryGap: false,
+				data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+			}
+		],
+		yAxis: [
+			{
+				type: 'value'
+			}
+		],
+		series: [
+			{
+				name: '保险',
+				type: 'line',
+				stack: 'Total',
+				areaStyle: {},
+				emphasis: {
+					focus: 'series'
+				},
+				data: [120, 132, 101, 134, 90, 230, 210]
+			},
+			{
+				name: '投资',
+				type: 'line',
+				stack: 'Total',
+				areaStyle: {},
+				emphasis: {
+					focus: 'series'
+				},
+				data: [220, 182, 191, 234, 290, 330, 310]
+			},
+			{
+				name: '备用金',
+				type: 'line',
+				stack: 'Total',
+				areaStyle: {},
+				emphasis: {
+					focus: 'series'
+				},
+				data: [150, 232, 201, 154, 190, 330, 410]
+			},
+			{
+				name: '储蓄',
+				type: 'line',
+				stack: 'Total',
+				areaStyle: {},
+				emphasis: {
+					focus: 'series'
+				},
+				data: [320, 332, 301, 334, 390, 330, 320]
+			}
+		]
+	};
+
+	const revenueShareOption = {
+		tooltip: {
+			trigger: 'item'
+		},
+		legend: {
+			top: '5%',
+			left: 'center'
+		},
+		series: [
+			{
+				name: 'Access From',
+				type: 'pie',
+				radius: ['40%', '70%'],
+				avoidLabelOverlap: false,
+				itemStyle: {
+					borderRadius: 10,
+					borderColor: '#fff',
+					borderWidth: 2
+				},
+				label: {
+					show: false,
+					position: 'center'
+				},
+				emphasis: {
+					label: {
+						show: true,
+						fontSize: 40,
+						fontWeight: 'bold'
+					}
+				},
+				labelLine: {
+					show: false
+				},
+				data: [
+					{ value: 1048, name: '固定收入' },
+					{ value: 735, name: '兼职收入' }
+				]
+			}
+		]
+	};
+	const assetProportionOption = {
+		tooltip: {
+			trigger: 'item'
+		},
+		legend: {
+			top: '5%',
+			left: 'center'
+		},
+		series: [
+			{
+				name: 'Access From',
+				type: 'pie',
+				radius: ['40%', '70%'],
+				avoidLabelOverlap: false,
+				itemStyle: {
+					borderRadius: 10,
+					borderColor: '#fff',
+					borderWidth: 2
+				},
+				label: {
+					show: false,
+					position: 'center'
+				},
+				emphasis: {
+					label: {
+						show: true,
+						fontSize: 40,
+						fontWeight: 'bold'
+					}
+				},
+				labelLine: {
+					show: false
+				},
+				data: [
+					{ value: 1048, name: '保险' },
+					{ value: 735, name: '备用金' },
+					{ value: 580, name: '投资' },
+					{ value: 484, name: '储蓄' }
+				]
+			}
+		]
+	};
+
 	const baseCard = 'card property-card card-hover';
 	const baseList = 'list h-5/6 overflow-y-auto mt-2';
 </script>
@@ -102,7 +266,20 @@
 			{/each}
 		</dl>
 	</div>
-	<div class=" card property-card col-span-7 row-span-3">图表</div>
+	<div class=" card property-card col-span-7 row-span-3">
+		<div class=" flex w-full h-full flex-col">
+			<div>
+				<span>当前时间:</span><input class="input w-40 ml-3" title="时间" type="date" />
+			</div>
+			<div class=" grid grid-cols-4 h-full gap-4">
+				<div class=" "><Echarts option={revenueShareOption} width="100%" height="100%" /></div>
+				<div class=" col-span-2">
+					<Echarts option={totalAssetsOption} width="100%" height="100%" />
+				</div>
+				<div class=""><Echarts option={assetProportionOption} width="100%" height="100%" /></div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <Modal components={propertyModalRegistry} />
