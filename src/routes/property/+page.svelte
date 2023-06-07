@@ -11,7 +11,6 @@
 	import ImprestModal from '../../component/ImprestModal.svelte';
 	import IncomeModal from '../../component/IncomeModal.svelte';
 	import DepositModal from '../../component/DepositModal.svelte';
-	import { each } from 'svelte/internal';
 
 	export let data: PageData;
 	const pageData = data.detailData;
@@ -40,7 +39,7 @@
 		<span class=" h-1/6">保险</span>
 		<dl class={baseList}>
 			{#each pageData.insure as item}
-				<div class=" py-0 flex gap-4 px-2">
+				<div class=" py-0 flex gap-4 px-2 text-{item.expire ? 'orange-400' : 'green-500'} ">
 					<dt>公司: {item.company}</dt>
 					<dd>保单号: {item.insuerNum}</dd>
 					<dd>保险金: {item.value}</dd>
@@ -82,10 +81,11 @@
 		<span class=" h-1/6">投资</span>
 		<dl class={baseList}>
 			{#each pageData.invest as item}
-				<div class=" py-0 flex gap-4 px-2">
+				<div class=" py-0 flex gap-4 px-2 text-{item.income >= 0 ? 'green-500' : 'red-500'}">
 					<dt>类型: {item.type}</dt>
 					<dd>投入: {item.input}</dd>
 					<dd>收益: {item.income}</dd>
+					<dd>收益率: {(item.income / item.input).toFixed(2)}%</dd>
 				</div>
 			{/each}
 		</dl>
