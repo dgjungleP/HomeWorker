@@ -1,6 +1,8 @@
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
+
+
     const detailData = {
         insure: [{ id: 1, company: "1", insuerNum: "11", value: 10, expire: false },
         { id: 1, company: "1", insuerNum: "11", value: 10, expire: false },

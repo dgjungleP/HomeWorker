@@ -12,8 +12,10 @@
 	import IncomeModal from '../../component/IncomeModal.svelte';
 	import DepositModal from '../../component/DepositModal.svelte';
 	import Echarts from '../../component/Echarts/Echarts.svelte';
+	import { setContext } from 'svelte';
 
 	export let data: PageData;
+	$: currentTime = new Date();
 	const pageData = data.detailData;
 	const propertyModalRegistry: Record<string, ModalComponent> = {
 		insure: { ref: InsureModal },
@@ -23,6 +25,9 @@
 		deposit: { ref: DepositModal }
 	};
 
+	function reload() {
+		console.log(currentTime);
+	}
 	function handleModal(type: string) {
 		console.log(type);
 		const modal: ModalSettings = {
@@ -237,7 +242,13 @@
 	<div class=" card property-card col-span-7 row-span-3">
 		<div class=" flex w-full h-full flex-col">
 			<div>
-				<span>当前时间:</span><input class="input w-40 ml-3" title="时间" type="date" />
+				<span>当前时间:</span><input
+					class="input w-40 ml-3"
+					title="时间"
+					type="date"
+					bind:value={currentTime}
+					on:change={reload}
+				/>
 			</div>
 			<div class=" grid grid-cols-4 h-full gap-4">
 				<div class=" "><Echarts option={revenueShareOption} width="100%" height="100%" /></div>
