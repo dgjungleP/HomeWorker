@@ -11,3 +11,5 @@
 {#if $modalStore[0]}
 	<div class={cBase}>Hello</div>
 {/if}
+
+<slot />
