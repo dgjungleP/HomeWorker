@@ -17,7 +17,6 @@
 
 	// We've created a custom submit function to pass the response and close the modal.
 	function onFormSubmit(): void {
-		console.log(cashData);
 		if ($modalStore[0].response) {
 			$modalStore[0].response(cashData);
 		}
@@ -38,7 +37,6 @@
 	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
 	const cHeader = 'text-2xl font-bold';
 	const cForm = 'border border-surface-500 p-4 space-y-4 rounded-container-token ';
-	console.log(parent);
 </script>
 
 <!-- @component This example creates a simple form modal. -->
