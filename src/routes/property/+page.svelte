@@ -46,7 +46,7 @@
 			}
 		},
 		legend: {
-			data: ['保险', '投资', '备用金', '储蓄']
+			data: data.analyseData.totalAsset.map((asset) => asset.name)
 		},
 
 		grid: {
@@ -59,7 +59,13 @@
 			{
 				type: 'category',
 				boundaryGap: false,
-				data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+				data: [
+					...new Set(
+						data.analyseData.totalAsset.flatMap((asset) =>
+							asset.data.map((assetData) => assetData.time)
+						)
+					)
+				]
 			}
 		],
 		yAxis: [
@@ -67,48 +73,18 @@
 				type: 'value'
 			}
 		],
-		series: [
-			{
-				name: '保险',
+		series: data.analyseData.totalAsset.map((asset) => {
+			return {
+				name: asset.name,
 				type: 'line',
 				stack: 'Total',
 				areaStyle: {},
 				emphasis: {
 					focus: 'series'
 				},
-				data: [120, 132, 101, 134, 90, 230, 210]
-			},
-			{
-				name: '投资',
-				type: 'line',
-				stack: 'Total',
-				areaStyle: {},
-				emphasis: {
-					focus: 'series'
-				},
-				data: [220, 182, 191, 234, 290, 330, 310]
-			},
-			{
-				name: '备用金',
-				type: 'line',
-				stack: 'Total',
-				areaStyle: {},
-				emphasis: {
-					focus: 'series'
-				},
-				data: [150, 232, 201, 154, 190, 330, 410]
-			},
-			{
-				name: '储蓄',
-				type: 'line',
-				stack: 'Total',
-				areaStyle: {},
-				emphasis: {
-					focus: 'series'
-				},
-				data: [320, 332, 301, 334, 390, 330, 320]
-			}
-		]
+				data: asset.data.map((assetData) => assetData.value)
+			};
+		})
 	};
 
 	const revenueShareOption = {
@@ -121,7 +97,7 @@
 		},
 		series: [
 			{
-				name: 'Access From',
+				name: '收入占比',
 				type: 'pie',
 				radius: ['40%', '70%'],
 				avoidLabelOverlap: false,
@@ -144,10 +120,7 @@
 				labelLine: {
 					show: false
 				},
-				data: [
-					{ value: 1048, name: '固定收入' },
-					{ value: 735, name: '兼职收入' }
-				]
+				data: data.analyseData.revennueShare
 			}
 		]
 	};
@@ -161,7 +134,7 @@
 		},
 		series: [
 			{
-				name: 'Access From',
+				name: '资产占比',
 				type: 'pie',
 				radius: ['40%', '70%'],
 				avoidLabelOverlap: false,
@@ -184,12 +157,7 @@
 				labelLine: {
 					show: false
 				},
-				data: [
-					{ value: 1048, name: '保险' },
-					{ value: 735, name: '备用金' },
-					{ value: 580, name: '投资' },
-					{ value: 484, name: '储蓄' }
-				]
+				data: data.analyseData.assetProportion
 			}
 		]
 	};
