@@ -12,10 +12,10 @@
 	import IncomeModal from '../../component/IncomeModal.svelte';
 	import DepositModal from '../../component/DepositModal.svelte';
 	import Echarts from '../../component/Echarts/Echarts.svelte';
-	import { setContext } from 'svelte';
+	import moment from 'moment';
 
 	export let data: PageData;
-	$: currentTime = new Date();
+	$: currentTime = moment().format('yyyy-MM-DD');
 	const pageData = data.detailData;
 	const propertyModalRegistry: Record<string, ModalComponent> = {
 		insure: { ref: InsureModal },
@@ -24,7 +24,6 @@
 		invest: { ref: InvestModal },
 		deposit: { ref: DepositModal }
 	};
-
 	function reload() {
 		console.log(currentTime);
 	}

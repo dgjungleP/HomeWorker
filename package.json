@@ -35,6 +35,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"echarts": "^5.4.2"
+		"echarts": "^5.4.2",
+		"moment": "^2.29.4",
+		"relationship.js": "^1.2.3"
 	}
 }
