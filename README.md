@@ -10,3 +10,4 @@
 - TypeScript
 - Echarts
 - Moment
+- dagre
