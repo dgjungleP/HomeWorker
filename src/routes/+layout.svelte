@@ -9,6 +9,11 @@
 	import { page } from '$app/stores';
 
 	let currentTile: number = 0;
+	const routers = [
+		{ key: 'cashbook', name: 'CashBook', title: '记账本' },
+		{ key: 'property', name: 'Property', title: '资产' },
+		{ key: 'relation', name: 'Relation', title: '家庭关系' }
+	];
 </script>
 
 <AppShell>
@@ -23,20 +28,15 @@
 					name="Home"
 					value={'home'}>主页</AppRailAnchor
 				>
-				<AppRailAnchor
-					href="/cashbook"
-					selected={$page.url.pathname.startsWith('/cashbook')}
-					bind:group={currentTile}
-					name="CashBook"
-					value={'cashbook'}>记账本</AppRailAnchor
-				>
-				<AppRailAnchor
-					href="/property"
-					selected={$page.url.pathname.startsWith('/property')}
-					bind:group={currentTile}
-					name="Property"
-					value={'property'}>资产</AppRailAnchor
-				>
+				{#each routers as router}
+					<AppRailAnchor
+						href={'/' + router.key}
+						selected={$page.url.pathname.startsWith('/' + router.key)}
+						bind:group={currentTile}
+						name={router.name}
+						value={router.key}>{router.title}</AppRailAnchor
+					>
+				{/each}
 				<AppRailAnchor
 					href="/about"
 					selected={$page.url.pathname === '/about'}
