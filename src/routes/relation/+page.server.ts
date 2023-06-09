@@ -65,7 +65,40 @@ export const load = (async () => {
 					user: {
 						name: 'Tobby3',
 						relation: [
-							{ user: { name: 'Tobby31' }, type: '儿子' },
+							{
+								user: {
+									name: 'Tobby31',
+									relation: [
+										{
+											user: {
+												name: 'Tobby311',
+												relation: [
+													{
+														user: {
+															name: 'Tobby3111',
+															relation: [
+																{ user: { name: 'Tobby31111' }, type: '儿子' },
+																{ user: { name: 'Tobby31112' }, type: '儿子' },
+																{ user: { name: 'Tobby31113' }, type: '儿子' },
+																{ user: { name: 'Tobby31114' }, type: '儿子' }
+															]
+														},
+														type: '儿子'
+													},
+													{ user: { name: 'Tobby3112' }, type: '儿子' },
+													{ user: { name: 'Tobby3113' }, type: '儿子' },
+													{ user: { name: 'Tobby3114' }, type: '儿子' }
+												]
+											},
+											type: '儿子'
+										},
+										{ user: { name: 'Tobby312' }, type: '儿子' },
+										{ user: { name: 'Tobby313' }, type: '儿子' },
+										{ user: { name: 'Tobby314' }, type: '儿子' }
+									]
+								},
+								type: '儿子'
+							},
 							{ user: { name: 'Tobby32' }, type: '儿子' },
 							{ user: { name: 'Tobby33' }, type: '儿子' },
 							{ user: { name: 'Tobby34' }, type: '儿子' }

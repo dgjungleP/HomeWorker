@@ -5,12 +5,16 @@
 	import { onMount } from 'svelte';
 	import { getLines, getLineStyle, type Line } from '$lib/util/graphUtil';
 	import type { Relation, User } from './+page.server';
+	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
 	export let data: PageData;
 	var g = new dagre.graphlib.Graph();
 	$: nodes = g.nodes();
 	$: lines = new Array<Line>();
-	$: marginNeed = 0;
+	$: marginRightNeed = 0;
+	$: marginButtonNeed = 0;
+
 	onMount(() => {
 		// 为图像标签设置一个空对象
 		g.setGraph({
@@ -36,7 +40,8 @@
 			lines.push(...getLines(e, g));
 		});
 		nodes = g.nodes();
-		marginNeed = g.graph().width!.valueOf() + 200;
+		marginRightNeed = g.graph().width!.valueOf() + 200;
+		marginButtonNeed = g.graph().height!.valueOf() + 200;
 	});
 	function deepBuildRelation(relation: Relation, parent: User) {
 		const currentUser = relation.user;
@@ -44,15 +49,26 @@
 		g.setEdge(parent.name, currentUser.name);
 		currentUser.relation?.forEach((relationUser) => deepBuildRelation(relationUser, currentUser));
 	}
+
+	function showDraw(node: string): any {
+		const drawerSetting: DrawerSettings = {
+			position: 'right',
+			width: ' w-1/4',
+			meta: { user: node }
+		};
+		drawerStore.open(drawerSetting);
+	}
 </script>
 
-<div class=" relative w-full h-full overflow-x-scroll">
+<div class=" relative w-full h-full overflow-scroll">
 	{#each nodes as node}
 		<div
 			transition:fade
 			class="card absolute bg-orange-400 card-hover grid grid-cols-2 grid-rows-3 gap-1 pt-4 px-4"
 			style="left:{g.node(node).x}px;top:{g.node(node).y}px; width:{g.node(node)
 				.width}px;height:{g.node(node).height}px"
+			on:click={() => showDraw(node)}
+			on:keydown
 		>
 			<div class="  row-span-2">Icon</div>
 			<div class="  line">{node}</div>
@@ -70,5 +86,12 @@
 			style="left:{line.startX}px;top:{line.startY}px;{getLineStyle(line)}"
 		/>
 	{/each}
-	<div class=" absolute h-1" style="width:{marginNeed}px ;" />
+	<div
+		class=" absolute h-1 -z-10"
+		style="width:{marginRightNeed}px ; height:{marginButtonNeed}px;"
+	/>
 </div>
+
+<Drawer>
+	<span>{$drawerStore.meta.user}</span>
+</Drawer>
