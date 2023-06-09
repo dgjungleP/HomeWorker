@@ -2,15 +2,13 @@
 	import dagre from 'dagre';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import { getLines, getLineStyle, type Line } from '$lib/util/graphUtil';
 
 	export let data: PageData;
 	var g = new dagre.graphlib.Graph();
-	var ref: Element;
 	$: nodes = g.nodes();
-	$: lines = g.edges();
+	$: lines = new Array<Line>();
 	onMount(() => {
-		console.log(ref.clientWidth);
-
 		// 为图像标签设置一个空对象
 		g.setGraph({
 			nodesep: 25,
@@ -35,9 +33,9 @@
 		g.setNode('4', { label: '4', width: 121, height: 100 });
 		g.setNode('5', { label: '5', width: 121, height: 100 });
 		g.setNode('6', { label: '6', width: 121, height: 100 });
-		g.setNode('7', { label: '6', width: 121, height: 100 });
-		g.setNode('8', { label: '6', width: 121, height: 100 });
-		g.setNode('9', { label: '6', width: 121, height: 100 });
+		g.setNode('7', { label: '7', width: 121, height: 100 });
+		g.setNode('8', { label: '8', width: 121, height: 100 });
+		g.setNode('9', { label: '9', width: 121, height: 100 });
 
 		// 给图像添加边线
 		g.setEdge('1', '2');
@@ -46,29 +44,27 @@
 
 		g.setEdge('3', '6');
 		g.setEdge('3', '5');
+		g.setEdge('3', '7');
+		g.setEdge('3', '8');
+		g.setEdge('3', '9');
 
 		g.setEdge('4', '5');
 		g.setEdge('4', '6');
 		g.setEdge('4', '7');
 		g.setEdge('4', '8');
 		g.setEdge('4', '9');
-
 		dagre.layout(g);
-		g.nodes().forEach(function (v) {
-			console.log('Node ' + v + ': ' + JSON.stringify(g.node(v)));
-		});
-		g.edges().forEach(function (e) {
-			console.log(
-				'Edge ' + e.v + ' -> ' + e.w + ': ' + JSON.stringify(g.edge(e)) + JSON.stringify(e)
-			);
-		});
 
+		lines = [];
+		g.edges().forEach(function (e) {
+			lines.push(...getLines(e, g));
+		});
 		nodes = g.nodes();
-		lines = g.edges();
+		console.log(lines);
 	});
 </script>
 
-<div bind:this={ref} class=" relative w-full h-full">
+<div class=" relative w-full h-full">
 	{#each nodes as node}
 		<div
 			class=" border-red-50 border absolute bg-red-400 card-hover"
@@ -78,9 +74,10 @@
 			{g.node(node).label}
 		</div>
 	{/each}
-	<!-- {#each lines as edge}
-		{#each g.edge(edge).points as point, i}
-			<div class="  absolute" style="left:{point.x}px;top:{point.y}px">{edge.v}->{edge.w}</div>
-		{/each}
-	{/each} -->
+	{#each lines as line}
+		<div
+			class="absolute flow-line"
+			style="left:{line.startX}px;top:{line.startY}px;{getLineStyle(line)}"
+		/>
+	{/each}
 </div>
