@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import dagre from 'dagre';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
@@ -48,6 +49,7 @@
 <div class=" relative w-full h-full overflow-x-scroll">
 	{#each nodes as node}
 		<div
+			transition:fade
 			class="card absolute bg-orange-400 card-hover grid grid-cols-2 grid-rows-3 gap-1 pt-4 px-4"
 			style="left:{g.node(node).x}px;top:{g.node(node).y}px; width:{g.node(node)
 				.width}px;height:{g.node(node).height}px"
@@ -63,6 +65,7 @@
 	{/each}
 	{#each lines as line}
 		<div
+			transition:fade
 			class="absolute flow-line"
 			style="left:{line.startX}px;top:{line.startY}px;{getLineStyle(line)}"
 		/>
