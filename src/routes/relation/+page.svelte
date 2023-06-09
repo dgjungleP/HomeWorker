@@ -7,8 +7,10 @@
 
 	export let data: PageData;
 	var g = new dagre.graphlib.Graph();
+	var ref;
 	$: nodes = g.nodes();
 	$: lines = new Array<Line>();
+	$: marginNeed = false;
 	onMount(() => {
 		// 为图像标签设置一个空对象
 		g.setGraph({
@@ -34,7 +36,7 @@
 			lines.push(...getLines(e, g));
 		});
 		nodes = g.nodes();
-		console.log(lines);
+		marginNeed = g.graph().width!.valueOf() > document.body.clientWidth;
 	});
 	function deepBuildRelation(relation: Relation, parent: User) {
 		const currentUser = relation.user;
@@ -44,14 +46,15 @@
 	}
 </script>
 
-<div class=" relative w-full h-full overflow-y-auto">
+<div bind:this={ref} class=" relative w-full h-full overflow-x-scroll">
 	{#each nodes as node}
 		<div
 			class=" border-red-50 border absolute bg-red-400 card-hover"
 			style="left:{g.node(node).x}px;top:{g.node(node).y}px; width:{g.node(node)
 				.width}px;height:{g.node(node).height}px"
 		>
-			{node}: {g.node(node).label || ''}
+			{node}
+			<span class=" bg-slate-300 absolute -top-2 -right-2"> {g.node(node).label || ''}</span>
 		</div>
 	{/each}
 	{#each lines as line}
@@ -60,4 +63,7 @@
 			style="left:{line.startX}px;top:{line.startY}px;{getLineStyle(line)}"
 		/>
 	{/each}
+	{#if marginNeed}
+		<div class=" absolute w-1 h-1 bg-slate-900 -right-1/4" />
+	{/if}
 </div>
