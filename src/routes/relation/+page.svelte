@@ -12,6 +12,8 @@
 	const NODE_PREFIX = 'node-';
 	const MIN_MARGIN = 80;
 	var g = new dagre.graphlib.Graph();
+	const INPUT_ERROR_CLASS = 'input-error';
+	let search: HTMLElement;
 	$: nodes = g.nodes();
 	$: lines = new Array<Line>();
 	$: marginRightNeed = 0;
@@ -67,8 +69,12 @@
 			const layout = document.getElementById('graph-layout')!;
 			const currentNode = document.getElementById(currentSelectedNode);
 			if (currentNode == null) {
+				if (search) {
+					search.classList.add(INPUT_ERROR_CLASS);
+				}
 				return;
 			}
+			search.classList.remove(INPUT_ERROR_CLASS);
 			const currentWind = {
 				top: layout.scrollTop,
 				left: layout.scrollLeft,
@@ -151,6 +157,7 @@
 </script>
 
 <div
+	bind:this={search}
 	class="input-group input-group-divider grid-cols-[auto_1fr_auto] fixed w-1/5 rounded-full z-[999] top-7 ml-8 opacity-25 hover:opacity-100 focus:opacity-100"
 >
 	<div class="input-group-shim">
@@ -169,7 +176,13 @@
 			/>
 		</svg>
 	</div>
-	<input type="search" placeholder="Search..." on:keypress={handleSearch} bind:value={searchUser} />
+	<input
+		type="search"
+		placeholder="Search..."
+		on:keypress={handleSearch}
+		bind:value={searchUser}
+		on:input={() => search.classList.remove(INPUT_ERROR_CLASS)}
+	/>
 </div>
 
 <div id="graph-layout" class=" relative w-full h-full overflow-scroll scroll-smooth">
