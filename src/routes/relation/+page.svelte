@@ -7,6 +7,7 @@
 	import type { Relation, User } from './+page.server';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
+	import { relation } from '$lib/relationship/relationUtil';
 
 	export let data: PageData;
 	const NODE_PREFIX = 'node-';
