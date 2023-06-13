@@ -159,7 +159,7 @@
 
 <div
 	bind:this={search}
-	class="input-group input-group-divider grid-cols-[auto_1fr_auto] fixed w-1/5 rounded-full z-[999] top-7 ml-8 opacity-25 hover:opacity-100 focus:opacity-100"
+	class="input-group input-group-divider grid-cols-[auto_1fr_auto] fixed w-1/5 z-[999] top-7 ml-8 opacity-25 hover:opacity-100 focus:opacity-100 rounded-2xl"
 >
 	<div class="input-group-shim">
 		<svg
