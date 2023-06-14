@@ -1,16 +1,21 @@
 <script lang="ts">
 	export let width: number | undefined;
 	export let height: number | undefined;
+	export let mask: boolean = false;
 
 	var card: HTMLElement;
 	function updatePointPosotion(
 		event: PointerEvent & { currentTarget: EventTarget & HTMLDivElement }
 	) {
+		console.log(event);
+
 		const rect = card.getBoundingClientRect();
 		const hw = rect.width / 2;
 		const hh = rect.height / 2;
 		const ratioX = (event.x - (rect.x + hw)) / hw;
 		const ratioY = (event.y - (rect.y + hh)) / hh;
+		console.log(ratioX, ratioY);
+
 		updateRatio(ratioX, ratioY);
 	}
 	function updateRatio(x: string | number, y: string | number) {
@@ -21,8 +26,9 @@
 
 <div
 	bind:this={card}
-	class="translate-card opacity-80 hover:opacity-100 {$$props.class ?? ''}"
-	style=" width:{width ? width + 'px' : '100%'} ; height:{height ? height + 'px' : '100%'};"
+	class:mask
+	class="translate-card hover:opacity-100 {$$props.class ?? ''}  "
+	style=" width:{width ? width + 'px' : '100%'} ; height:{height ? height + 'px' : '100%'}; "
 	on:pointermove={updatePointPosotion}
 	on:pointerleave={() => updateRatio(0, 0)}
 >
@@ -53,8 +59,8 @@
 			0 0 13px 4px rgba(255, 255, 255, 0.3), 0 55px 35px -20px rgba(0, 0, 0, 0.5);
 	}
 
-	.translate-card::before,
-	.translate-card::after {
+	.translate-card.mask::before,
+	.translate-card.mask::after {
 		content: '';
 		position: absolute;
 		border-radius: inherit;
@@ -67,7 +73,7 @@
 		mix-blend-mode: color-dodge;
 		transition: all 0.33s ease;
 	}
-	.translate-card::before {
+	.translate-card.mask::before {
 		background-position: 50% 50%;
 		background-size: 300% 300%;
 		background-image: linear-gradient(
@@ -79,12 +85,12 @@
 			var(--color2) 75%,
 			transparent 100%
 		);
-		opacity: 0.5;
+		opacity: 0.25;
 		filter: brightness(0.5) contrast(1);
 		z-index: 1;
 	}
 
-	.translate-card::after {
+	.translate-card.mask::after {
 		opacity: 1;
 		background-image: url('/sparkles.gif'), url('/holo.webp'),
 			linear-gradient(
@@ -103,6 +109,6 @@
 		filter: brightness(1) contrast(1);
 		transition: all 0.33s ease;
 		mix-blend-mode: color-dodge;
-		opacity: 0.75;
+		opacity: 0.5;
 	}
 </style>

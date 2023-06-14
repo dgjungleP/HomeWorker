@@ -3,9 +3,10 @@ declare const __propDef: {
 	props: {
 		[x: string]: any;
 		/** Provide classes to set the tab list flex justification.*/
-		width?: number | undefined;
+		width?: number | string | undefined;
 		/** Provide classes to set the tab group border styles.*/
-		height?: number | undefined;
+		height?: number | string | undefined;
+		mask?: boolean;
 	};
 	events: Record<string, never>;
 	slots: {

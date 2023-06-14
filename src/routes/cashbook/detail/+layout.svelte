@@ -11,7 +11,7 @@
 	import { setContext } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import { modalStore } from '@skeletonlabs/skeleton';
-	import CashbookModal from '../../../component/CashbookModal.svelte';
+	import CashbookModal from '../../../component/Modal/CashbookModal.svelte';
 	export let data: PageData;
 
 	$: showUtilList = false;

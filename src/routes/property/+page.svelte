@@ -6,11 +6,11 @@
 		type ModalSettings
 	} from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
-	import InvestModal from '../../component/InvestModal.svelte';
-	import InsureModal from '../../component/InsureModal.svelte';
-	import ImprestModal from '../../component/ImprestModal.svelte';
-	import IncomeModal from '../../component/IncomeModal.svelte';
-	import DepositModal from '../../component/DepositModal.svelte';
+	import InvestModal from '../../component/Modal/InvestModal.svelte';
+	import InsureModal from '../../component/Modal/InsureModal.svelte';
+	import ImprestModal from '../../component/Modal/ImprestModal.svelte';
+	import IncomeModal from '../../component/Modal/IncomeModal.svelte';
+	import DepositModal from '../../component/Modal/DepositModal.svelte';
 	import Echarts from '../../component/Echarts/Echarts.svelte';
 	import moment from 'moment';
 
