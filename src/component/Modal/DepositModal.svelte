@@ -23,7 +23,7 @@
 </script>
 
 {#if $modalStore[0]}
-	<div class=" grid grid-cols-5 gap-4">
+	<div class="   grid grid-cols-5 gap-4">
 		{#each cards as card}
 			<TranslateCard width="250" height="100" mask={true} class=" rounded-lg p-1 bg-orange-400">
 				<div
