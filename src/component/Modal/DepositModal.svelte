@@ -12,7 +12,6 @@
 	// Stores
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import TranslateCard from '../Card/TranslateCard/TranslateCard.svelte';
-	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
 	const cards: BankCard[] = [];
 	for (let i = 0; i < 18; i++) {
 		cards.push({
