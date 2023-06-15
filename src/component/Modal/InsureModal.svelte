@@ -26,7 +26,7 @@
 			<div class=" col-start-5 col-end-7 border border-black">
 				<span>投保分数:</span><span>XXXX</span>
 			</div>
-			<div class=" col-start-8 col-end-10 row-start-4 row-end-6 border border-black">
+			<div class=" col-start-8 col-end-10 row-start-3 row-end-5 border border-black">
 				<span>保额:</span><span>XXXX</span>
 			</div>
 			<div class=" col-start-2 col-end-10 border border-black">
