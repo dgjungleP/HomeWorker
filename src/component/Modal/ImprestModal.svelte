@@ -9,6 +9,6 @@
 </script>
 
 {#if $modalStore[0]}
-	<div class={cBase}>Hello</div>
+	<div class={cBase}>Hello2</div>
 {/if}
 <slot />
