@@ -2,21 +2,99 @@
 	// Props
 	/** Exposes parent props to this component. */
 	export let parent: any;
+	type Imprest = {
+		name: string;
+		amount: number;
+	};
 
 	// Stores
 	import { modalStore } from '@skeletonlabs/skeleton';
-	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
+	const inprestData: Imprest[] = [
+		{
+			name: '生活费',
+			amount: 500
+		},
+		{
+			name: '房租',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		},
+		{
+			name: '水电费',
+			amount: 500
+		}
+	];
 </script>
 
 {#if $modalStore[0]}
-	<div class=" relative">
-		<div class=" w-40 bg-red-500 h-10 border-2 border-red-700 z-10 relative top-papre" />
-		<div class=" w-40 bg-red-500 h-52 border-4 border-red-800 z-30 relative" />
-		<div
-			class=" absolute border-4 rounded-[50%] w-10 h-10 p-2 border-orange-700 bg-orange-300 flex items-center justify-center text-white -top-20 z-20 left-[60px] coin"
-		>
-			$
-		</div>
+	<div class=" grid grid-cols-8 gap-x-8 gap-y-28">
+		{#each inprestData as imprest}
+			<div class=" relative">
+				<div class=" w-40 bg-red-500 h-10 border-2 border-red-700 z-10 relative top-papre" />
+				<div
+					class=" w-40 bg-red-500 h-52 border-4 border-red-800 z-30 relative flex justify-center items-center text-white flex-col gap-2"
+				>
+					<span class=" w-min"> {imprest.name} </span>
+					<span class=" font-bold text-2xl"> {imprest.amount}</span>
+				</div>
+				<div
+					class=" absolute border-4 rounded-[50%] w-10 h-10 p-2 border-orange-700 bg-orange-300 flex items-center justify-center text-white -top-20 z-20 left-[60px] coin"
+				>
+					$
+				</div>
+			</div>
+		{/each}
 	</div>
 {/if}
 <slot />
