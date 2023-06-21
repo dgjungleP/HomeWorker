@@ -170,7 +170,7 @@
 	const baseList = 'list h-5/6 overflow-y-auto mt-2';
 </script>
 
-<div class=" grid grid-cols-7 grid-rows-5 gap-2 p-2 h-screen">
+<div class=" grid grid-cols-7 grid-rows-5 gap-2 p-2 h-screen overflow-y-hidden">
 	<div class=" {baseCard} col-span-2" on:click={() => handleModal('insure')} on:keydown>
 		<span class=" h-1/6">保险</span>
 		<dl class={baseList}>
