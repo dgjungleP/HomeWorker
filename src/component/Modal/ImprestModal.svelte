@@ -24,6 +24,10 @@
 <style lang="postcss">
 	@keyframes flow {
 		0% {
+			@apply -top-20;
+		}
+		25% {
+			@apply top-0;
 		}
 		50% {
 			@apply top-10;
@@ -33,29 +37,33 @@
 		}
 	}
 	.coin {
-		animation: flow 4s cubic-bezier(0, 0, 0.2, 1) infinite;
+		animation: 4s flow infinite;
 	}
 
 	@keyframes fold {
 		0% {
 		}
 		25% {
-			@apply z-40 border-4 border-red-800;
+			transform: rotateX(0deg);
+			@apply z-20 border-2 border-red-700;
 		}
 		50% {
-			transform: rotateX(180deg);
+			transform: rotateX(0deg);
+			@apply z-20 border-2 border-red-700;
 		}
 		75% {
 			@apply z-40 border-4 border-red-800;
-			transform: rotateX(0deg);
+			transform: rotateX(180deg);
 		}
+
 		100% {
-			@apply z-20 border-2 border-red-700;
+			transform: rotateX(0deg);
+			@apply z-20 border-2  border-red-700;
 		}
 	}
 	.top-papre {
 		transform-style: preserve-3d;
-		animation: fold 4s cubic-bezier(0, 0, 0.2, 1) infinite;
+		animation: 4s fold 0.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 		transform-origin: bottom;
 	}
 </style>
