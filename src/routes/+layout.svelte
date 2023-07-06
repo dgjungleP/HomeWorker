@@ -12,7 +12,8 @@
 	const routers = [
 		{ key: 'cashbook', name: 'CashBook', title: '记账本' },
 		{ key: 'property', name: 'Property', title: '资产' },
-		{ key: 'relation', name: 'Relation', title: '家庭关系' }
+		{ key: 'relation', name: 'Relation', title: '家庭关系' },
+		{ key: 'tool', name: 'Tool', title: '工具箱' }
 	];
 </script>
 
