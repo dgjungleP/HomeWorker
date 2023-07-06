@@ -21,7 +21,7 @@
 </script>
 
 <div class=" flex h-full">
-	<div class=" {card} w-4/5 m-auto flex gap-2 flex-col p-4">
+	<div class=" {card}  w-3/5 m-auto flex gap-2 flex-col p-4 min-w-[700px]">
 		<div class="income-tab {card}">
 			<label class="label">
 				<div>总金额:</div>
