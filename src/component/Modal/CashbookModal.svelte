@@ -7,6 +7,7 @@
 
 	// Stores
 	import { modalStore } from '@skeletonlabs/skeleton';
+	import { setContext } from 'svelte';
 	// Form Data
 	const cashData = {
 		amount: '',
@@ -37,10 +38,10 @@
 		} else {
 			holder = simpleData;
 		}
-		holder[$modalStore[0].value.type].push(cashData);
+		const type = $modalStore[0].value.type;
+		holder[type].push(cashData);
 		writeKey('cashbookData', holder);
 		modalStore.close();
-		location.reload();
 	}
 	function getTitle(type: string) {
 		switch (type) {

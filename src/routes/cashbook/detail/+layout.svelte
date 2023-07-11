@@ -8,7 +8,7 @@
 		type ModalSettings
 	} from '@skeletonlabs/skeleton';
 	import { fade } from 'svelte/transition';
-	import { setContext } from 'svelte';
+	import { onMount, setContext, beforeUpdate } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import { modalStore } from '@skeletonlabs/skeleton';
 	import CashbookModal from '../../../component/Modal/CashbookModal.svelte';
@@ -16,9 +16,18 @@
 
 	$: showUtilList = false;
 	$: hoverHold = false;
+
 	const type: Writable<string> = writable('favor');
 
 	setContext('type', type);
+
+	onMount(() => {
+		const currentType = (
+			getQueryArr().find((data) => data.key == 'type')?.value || 'favor'
+		).toString();
+		type.set(currentType);
+	});
+
 	function handleUtilClick() {
 		showUtilList = !showUtilList;
 		hoverHold = !hoverHold;
@@ -33,6 +42,39 @@
 		e.stopPropagation();
 		location.href = '/cashbook';
 	}
+	function getQueryArr(): { key: string; value: string }[] {
+		if (location.search) {
+			const query = location.search.substring(1).split('&');
+			const queryArr = query.map((data) => {
+				const kvPair = data.split('=');
+				return { key: kvPair[0], value: kvPair[1] };
+			});
+			return queryArr;
+		}
+		return [];
+	}
+	function buildQueryString(query: { key: string; value: string }[]): string {
+		if (query.length == 0) {
+			return '';
+		}
+
+		return '?' + query.map((data) => data.key + '=' + data.value).join('&');
+	}
+	function addQueryStraing(query: {
+		key: string;
+		value: string;
+	}): { key: string; value: string }[] {
+		let base = getQueryArr();
+
+		const pre = base.find((data) => data.key == query.key);
+		if (pre) {
+			pre.value = query.value;
+		} else {
+			base = [...base, query];
+		}
+
+		return base;
+	}
 
 	const modalComponent: ModalComponent = {
 		ref: CashbookModal
@@ -43,10 +85,16 @@
 			type: 'component',
 			// Pass the component directly:
 			component: modalComponent,
-			value: { type: $type }
+			value: { type: $type },
+			response: (r: any) => {
+				location.replace(
+					location.origin +
+						location.pathname +
+						buildQueryString(addQueryStraing({ key: 'type', value: $type }))
+				);
+			}
 		};
 		modalStore.trigger(modal);
-		console.log($type);
 	}
 	let clickAction: string = '';
 </script>
