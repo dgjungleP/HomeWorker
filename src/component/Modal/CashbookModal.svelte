@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { readKey, writeKey } from '$lib/util/storage';
+
 	// Props
 	/** Exposes parent props to this component. */
 	export let parent: any;
@@ -14,13 +16,31 @@
 		reason: '',
 		description: ''
 	};
-
+	const demo = {
+		id: 1,
+		amount: 100,
+		time: 1685772956,
+		user: 'Jungle',
+		type: 'income',
+		reason: '人情'
+	};
 	// We've created a custom submit function to pass the response and close the modal.
 	function onFormSubmit(): void {
 		if ($modalStore[0].response) {
 			$modalStore[0].response(cashData);
 		}
+		let holder;
+		const simpleDataJson = readKey('cashbookData');
+		const simpleData = JSON.parse(simpleDataJson);
+		if (Object.keys(simpleData).length == 0) {
+			holder = { favor: [], consume: [] };
+		} else {
+			holder = simpleData;
+		}
+		holder[$modalStore[0].value.type].push(cashData);
+		writeKey('cashbookData', holder);
 		modalStore.close();
+		location.reload();
 	}
 	function getTitle(type: string) {
 		switch (type) {
