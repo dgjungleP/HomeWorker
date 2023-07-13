@@ -7,7 +7,10 @@
 	import '../app.postcss';
 	import { AppShell, AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/github-dark.css';
+	import { storeHighlightJs } from '@skeletonlabs/skeleton';
+	storeHighlightJs.set(hljs);
 	let currentTile: number = 0;
 	const routers = [
 		{ key: 'cashbook', name: 'CashBook', title: '记账本' },

@@ -7,7 +7,6 @@
 
 	// Stores
 	import { modalStore } from '@skeletonlabs/skeleton';
-	import { setContext } from 'svelte';
 	// Form Data
 	const cashData = {
 		amount: '',

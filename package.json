@@ -44,6 +44,7 @@
 		"echarts": "^5.4.2",
 		"highlight.js": "^11.8.0",
 		"moment": "^2.29.4",
+		"monaco-editor": "^0.40.0",
 		"relationship.js": "^1.2.3"
 	}
 }
