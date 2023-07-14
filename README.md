@@ -11,6 +11,7 @@
 - Echarts
 - Moment
 - dagre
+- monacoedit
 
 ## 问题
 
