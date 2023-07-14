@@ -13,10 +13,35 @@
 	import DepositModal from '../../component/Modal/DepositModal.svelte';
 	import Echarts from '../../component/Echarts/Echarts.svelte';
 	import moment from 'moment';
-
+	import type { AnalyseData, DetailData } from './+page.server';
+	import { writable } from 'svelte/store';
+	import { onMount } from 'svelte';
+	import { readKey } from '$lib/util/storage';
 	export let data: PageData;
 	$: currentTime = moment().format('yyyy-MM-DD');
-	const pageData = data.detailData;
+	const detailData = writable<DetailData>({
+		insure: [],
+		impress: [],
+		income: [],
+		invest: [],
+		deposit: []
+	});
+	const analyseData = writable<AnalyseData>({
+		totalAsset: [],
+		revennueShare: [],
+		assetProportion: []
+	});
+	onMount(() => {
+		const simpleDataJson = readKey('propertyData');
+		const simpleData = JSON.parse(simpleDataJson);
+		console.log(simpleData);
+
+		if (Object.keys(simpleData).length !== 0) {
+			detailData.set(simpleData.detailData);
+			analyseData.set(simpleData.analyseData);
+		}
+	});
+
 	const propertyModalRegistry: Record<string, ModalComponent> = {
 		insure: { ref: InsureModal },
 		imprest: { ref: ImprestModal },
@@ -35,8 +60,7 @@
 		};
 		modalStore.trigger(modal);
 	}
-
-	const totalAssetsOption = {
+	$: totalAssetsOption = {
 		title: {
 			text: '资产总值'
 		},
@@ -50,7 +74,7 @@
 			}
 		},
 		legend: {
-			data: data.analyseData.totalAsset.map((asset) => asset.name)
+			data: $analyseData.totalAsset.map((asset) => asset.name)
 		},
 
 		grid: {
@@ -65,7 +89,7 @@
 				boundaryGap: false,
 				data: [
 					...new Set(
-						data.analyseData.totalAsset.flatMap((asset) =>
+						$analyseData.totalAsset.flatMap((asset) =>
 							asset.data.map((assetData) => assetData.time)
 						)
 					)
@@ -77,7 +101,7 @@
 				type: 'value'
 			}
 		],
-		series: data.analyseData.totalAsset.map((asset) => {
+		series: $analyseData.totalAsset.map((asset) => {
 			return {
 				name: asset.name,
 				type: 'line',
@@ -91,7 +115,7 @@
 		})
 	};
 
-	const revenueShareOption = {
+	$: revenueShareOption = {
 		tooltip: {
 			trigger: 'item'
 		},
@@ -124,11 +148,11 @@
 				labelLine: {
 					show: false
 				},
-				data: data.analyseData.revennueShare
+				data: $analyseData.revennueShare
 			}
 		]
 	};
-	const assetProportionOption = {
+	$: assetProportionOption = {
 		tooltip: {
 			trigger: 'item'
 		},
@@ -161,7 +185,7 @@
 				labelLine: {
 					show: false
 				},
-				data: data.analyseData.assetProportion
+				data: $analyseData.assetProportion
 			}
 		]
 	};
@@ -174,7 +198,7 @@
 	<div class=" {baseCard} col-span-2" on:click={() => handleModal('insure')} on:keydown>
 		<span class=" h-1/6">保险</span>
 		<dl class={baseList}>
-			{#each pageData.insure as item}
+			{#each $detailData.insure as item}
 				<div class=" py-0 flex gap-4 px-2 {item.expire ? 'text-orange-400' : 'text-green-400'} ">
 					<dt>公司: {item.company}</dt>
 					<dd>保单号: {item.insuerNum}</dd>
@@ -188,7 +212,7 @@
 	<div class=" {baseCard} col-span-3 row-span-2" on:click={() => handleModal('imprest')} on:keydown>
 		<span class=" h-1/6">备用金</span>
 		<dl class={baseList}>
-			{#each pageData.impress as item}
+			{#each $detailData.impress as item}
 				<div class=" py-0 flex gap-4 px-2">
 					<dt>用途: {item.useTo}</dt>
 					<dd>金额: {item.account}</dd>
@@ -204,7 +228,7 @@
 	<div class=" {baseCard} col-span-2" on:click={() => handleModal('income')} on:keydown>
 		<span class=" h-1/6">收入</span>
 		<dl class={baseList}>
-			{#each pageData.income as item}
+			{#each $detailData.income as item}
 				<div class=" py-0 flex gap-4 px-2">
 					<dt>来源: {item.source}</dt>
 					<dd>金额: {item.account}</dd>
@@ -216,7 +240,7 @@
 	<div class=" {baseCard} col-span-2" on:click={() => handleModal('invest')} on:keydown>
 		<span class=" h-1/6">投资</span>
 		<dl class={baseList}>
-			{#each pageData.invest as item}
+			{#each $detailData.invest as item}
 				<div class=" py-0 flex gap-4 px-2 {item.income >= 0 ? 'text-green-500' : 'text-red-500'}">
 					<dt>类型: {item.type}</dt>
 					<dd>投入: {item.input}</dd>
@@ -229,7 +253,7 @@
 	<div class=" {baseCard} col-span-2" on:click={() => handleModal('deposit')} on:keydown>
 		<span class=" h-1/6">储蓄</span>
 		<dl class={baseList}>
-			{#each pageData.deposit as item}
+			{#each $detailData.deposit as item}
 				<div class=" py-0 flex gap-4 px-2">
 					<dt>银行: {item.bank}</dt>
 					<dd>金额: {item.account}</dd>
