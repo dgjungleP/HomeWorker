@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { readKey } from '$lib/util/storage';
+	import { readKey, writeKey } from '$lib/util/storage';
 
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
@@ -11,7 +11,7 @@
 
 	const dataSourceType = writable('cashbook');
 	$: pageData = '';
-
+	let editor: { formatValue: Function; getCurrentValue: Function };
 	onMount(() => {
 		pageData = getDataSource($dataSourceType);
 	});
@@ -44,7 +44,24 @@
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
 			<div class=" card px-4 py-6 variant-ghost">
-				<MonacoEditor value={pageData} />
+				<div class="tools mb-1">
+					<button
+						type="button"
+						class="btn btn-sm variant-filled-tertiary"
+						on:click={() => {
+							writeKey($dataSourceType + 'Data', JSON.parse(editor.getCurrentValue()));
+						}}>保存</button
+					>
+					<button
+						type="button"
+						class="btn btn-sm variant-filled-warning"
+						on:click={() => {
+							editor.formatValue();
+						}}>格式化</button
+					>
+				</div>
+
+				<MonacoEditor bind:this={editor} value={pageData} />
 			</div>
 		</svelte:fragment>
 	</TabGroup>

@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
 	import type monaco from 'monaco-editor';
 	import { onMount } from 'svelte';
@@ -9,6 +11,15 @@
 	let divEl: HTMLDivElement;
 	let editor: monaco.editor.IStandaloneCodeEditor;
 	let Monaco;
+
+	export function getCurrentValue(): string {
+		return editor.getValue();
+	}
+	export function formatValue() {
+		setTimeout(() => {
+			editor.setValue(JSON.stringify(JSON.parse(editor.getValue()), null, 2));
+		}, 500);
+	}
 	onMount(async () => {
 		// @ts-ignore
 		self.MonacoEnvironment = {
@@ -36,10 +47,8 @@
 			id: 'autoFormat',
 			label: 'AutoFormat',
 			keybindings: [Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.KeyQ],
-			run: (currentEditor) => {
-				setTimeout(() => {
-					currentEditor.setValue(JSON.stringify(JSON.parse(currentEditor.getValue()), null, 2));
-				}, 500);
+			run: () => {
+				formatValue();
 			}
 		});
 		return () => {
