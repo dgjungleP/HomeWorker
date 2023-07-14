@@ -8,6 +8,7 @@
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { relation } from '$lib/relationship/relationUtil';
+	import { readKey } from '$lib/util/storage';
 
 	export let data: PageData;
 	const NODE_PREFIX = 'node-';
@@ -34,7 +35,13 @@
 			return {};
 		});
 
-		for (const user of data.userData) {
+		let userList: User[] = [];
+		const simpleDataJson = readKey('relationData');
+		const simpleData = JSON.parse(simpleDataJson);
+		if (Object.keys(simpleData).length !== 0) {
+			userList = simpleData;
+		}
+		for (const user of userList) {
 			g.setNode(user.name, { width: 200, height: 100 });
 			user.relation?.forEach((relationUser) => deepBuildRelation(relationUser, user));
 		}
@@ -110,10 +117,6 @@
 					),
 					0
 				);
-				console.log(currentWind);
-				console.log(currentNode.offsetLeft, moveLeft);
-				console.log(currentNode.offsetTop, moveTop);
-
 				layout.scrollTo({
 					top: moveTop,
 					left: moveLeft
