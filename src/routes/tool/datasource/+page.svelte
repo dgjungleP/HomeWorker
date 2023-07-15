@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { readKey, writeKey } from '$lib/util/storage';
-
+	import attribute from './attribute.json';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { TabGroup, Tab, CodeBlock } from '@skeletonlabs/skeleton';

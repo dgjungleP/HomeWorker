@@ -1,0 +1,118 @@
+[
+	{
+		"key": "cashbook",
+		"description": "记账本数据",
+		"child": [
+			{
+				"name": "favor",
+				"description": "人情账本数据",
+				"child": [
+					{ "name": "amount", "description": "总计金额" },
+					{ "name": "time", "description": "发生时间" },
+					{ "name": "type", "description": "发生类型" },
+					{ "name": "reason", "description": "发生的原因" },
+					{ "name": "user", "description": "对标的用户" },
+					{ "name": "description", "description": "人情数据描述" }
+				]
+			},
+			{
+				"name": "consume",
+				"description": "消费账本数据",
+				"child": [
+					{ "name": "amount", "description": "总计金额" },
+					{ "name": "time", "description": "发生时间" },
+					{ "name": "type", "description": "发生类型" },
+					{ "name": "reason", "description": "发生的原因" },
+					{ "name": "user", "description": "对标的用户" },
+					{ "name": "description", "description": "消费数据描述" }
+				]
+			}
+		]
+	},
+	{
+		"key": "property",
+		"description": "资产数据",
+		"child": [
+			{
+				"name": "detailData",
+				"description": "资产详情数据",
+				"child": [
+					{ "name": "amount", "description": "总计金额" },
+					{ "name": "time", "description": "发生时间" },
+					{ "name": "type", "description": "发生类型" },
+					{ "name": "reason", "description": "发生的原因" },
+					{ "name": "user", "description": "对标的用户" },
+					{ "name": "description", "description": "人情数据描述" }
+				]
+			},
+			{
+				"name": "analyseData",
+				"description": "资产图表分析数据",
+				"child": [
+					{
+						"name": "totalAsset",
+						"description": "总资产折线图数据",
+						"child": [
+							{ "name": "name", "description": "资产名称" },
+							{
+								"name": "data",
+								"description": "资产数据含量",
+								"child": [
+									{ "name": "time", "description": "坐标维度" },
+									{ "name": "value", "description": "资产含量" }
+								]
+							}
+						]
+					},
+					{
+						"name": "revennueShare",
+						"description": "收入饼图数据",
+						"child": [
+							{ "name": "name", "description": "收入名称" },
+							{ "name": "value", "description": "收入含量" }
+						]
+					},
+					{
+						"name": "assetProportion",
+						"description": "资产分布饼图数据",
+						"child": [
+							{ "name": "name", "description": "资产名称" },
+							{ "name": "value", "description": "资产含量" }
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"key": "relation",
+		"description": "家庭关系数据",
+		"child": [
+			{
+				"name": "name",
+				"description": "当前人名称"
+			},
+			{
+				"name": "relation",
+				"description": "与当前人相关的人",
+				"child": [
+					{
+						"name": "user",
+						"description": "用户信息",
+						"child": [
+							{
+								"name": "name",
+								"description": "当前人名称"
+							},
+							{
+								"name": "relation",
+								"description": "与当前人相关的人"
+							}
+						]
+					},
+					{ "name": "type", "description": "与上级用户关系" }
+				]
+			}
+		]
+	}
+]
