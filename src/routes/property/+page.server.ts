@@ -10,7 +10,7 @@ export type DetailData = {
 export type Insure = {
 	id: number;
 	company: string;
-	insuerNum: string;
+	insureNum: string;
 	value: number;
 	expire: boolean;
 };

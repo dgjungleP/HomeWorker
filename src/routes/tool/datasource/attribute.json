@@ -37,12 +37,61 @@
 				"name": "detailData",
 				"description": "资产详情数据",
 				"child": [
-					{ "name": "amount", "description": "总计金额" },
-					{ "name": "time", "description": "发生时间" },
-					{ "name": "type", "description": "发生类型" },
-					{ "name": "reason", "description": "发生的原因" },
-					{ "name": "user", "description": "对标的用户" },
-					{ "name": "description", "description": "人情数据描述" }
+					{
+						"name": "insure",
+						"description": "保险",
+						"child": [
+							{ "name": "company", "description": "保险公司" },
+							{ "name": "insureNum", "description": "保险单号" },
+							{ "name": "value", "description": "保险价值" },
+							{ "name": "expire", "description": "是否到期" }
+						]
+					},
+					{
+						"name": "impress",
+						"description": "备用金",
+						"child": [
+							{ "name": "useTo", "description": "备用金用途" },
+							{ "name": "account", "description": "备用金价值" },
+							{
+								"name": "plan",
+								"description": "备用金计划",
+								"child": [
+									{ "name": "value", "description": "计划量" },
+									{ "name": "period", "description": "计划周期" },
+									{ "name": "unit", "description": "计划周期单位" }
+								]
+							}
+						]
+					},
+					{
+						"name": "income",
+						"description": "收入",
+						"child": [
+							{ "name": "source", "description": "收入来源" },
+							{ "name": "account", "description": "收入价值" },
+							{ "name": "period", "description": "收入周期" },
+							{ "name": "unit", "description": "收入周期单位" }
+						]
+					},
+					{
+						"name": "invest",
+						"description": "投资",
+						"child": [
+							{ "name": "type", "description": "投资类型" },
+							{ "name": "input", "description": "投资投入" },
+							{ "name": "income", "description": "投资回报" }
+						]
+					},
+					{
+						"name": "deposit",
+						"description": "储蓄",
+						"child": [
+							{ "name": "bank", "description": "储蓄银行" },
+							{ "name": "account", "description": "储蓄值" },
+							{ "name": "memo", "description": "备注" }
+						]
+					}
 				]
 			},
 			{

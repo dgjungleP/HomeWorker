@@ -34,7 +34,6 @@
 	onMount(() => {
 		const simpleDataJson = readKey('propertyData');
 		const simpleData = JSON.parse(simpleDataJson);
-		console.log(simpleData);
 
 		if (Object.keys(simpleData).length !== 0) {
 			detailData.set(simpleData.detailData);
@@ -201,7 +200,7 @@
 			{#each $detailData.insure as item}
 				<div class=" py-0 flex gap-4 px-2 {item.expire ? 'text-orange-400' : 'text-green-400'} ">
 					<dt>公司: {item.company}</dt>
-					<dd>保单号: {item.insuerNum}</dd>
+					<dd>保单号: {item.insureNum}</dd>
 					<dd>保险金: {item.value}</dd>
 				</div>
 			{:else}
