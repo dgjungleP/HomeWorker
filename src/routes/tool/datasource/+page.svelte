@@ -3,7 +3,7 @@
 	import attribute from './attribute.json';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import { TabGroup, Tab, CodeBlock } from '@skeletonlabs/skeleton';
+	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import { writable } from 'svelte/store';
 	import MonacoEditor from '../../../component/MonacoEditor/MonacoEditor.svelte';
 
@@ -18,7 +18,7 @@
 
 	function getDataSource(dataSourceType: string): string {
 		const json = readKey(dataSourceType + 'Data');
-		if (Object.keys(json).length == 0) {
+		if (Object.keys(JSON.parse(json)).length == 0) {
 			return '';
 		}
 		return json;
@@ -40,6 +40,9 @@
 		>
 		<Tab bind:group={$dataSourceType} name="relation" value={'relation'} on:change={handbleChange}
 			>家庭管理器</Tab
+		>
+		<Tab bind:group={$dataSourceType} name="timestamp" value={'timestamp'} on:change={handbleChange}
+			>时间戳工具</Tab
 		>
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
