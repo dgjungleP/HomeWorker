@@ -44,6 +44,9 @@
 		<Tab bind:group={$dataSourceType} name="timestamp" value={'timestamp'} on:change={handbleChange}
 			>时间戳工具</Tab
 		>
+		<Tab bind:group={$dataSourceType} name="plan" value={'plan'} on:change={handbleChange}
+			>计划工具</Tab
+		>
 		<!-- Tab Panels --->
 		<svelte:fragment slot="panel">
 			<div class=" card px-4 py-6 variant-ghost">
