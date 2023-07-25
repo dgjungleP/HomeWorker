@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { readKey } from '$lib/util/storage';
 	import moment from 'moment';
+	import { onMount } from 'svelte';
 
 	$: planList = [
 		{
@@ -29,6 +31,13 @@
 			doCount: 12
 		}
 	];
+	onMount(() => {
+		const json = readKey('planData');
+		const jsonObject = JSON.parse(json);
+		if (Object.keys(jsonObject).length !== 0) {
+			console.log(jsonObject);
+		}
+	});
 	function getSum(planName: string) {
 		return 100;
 	}
