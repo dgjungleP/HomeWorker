@@ -38,7 +38,6 @@
 			.flatMap((data) => data.planList)
 			.filter((data) => data.name == planName)
 			.map((data) => data.doCount);
-		debugger;
 		return selectedPlanList.length == 0 ? 0 : selectedPlanList.reduce((l, r) => l + r);
 	}
 	function deletePlan(index: any): any {
@@ -67,7 +66,6 @@
 		const selectedDailyPlan = $allPlanDetail.dailyPlanList.filter(
 			(data) => data.date == selectedDate
 		);
-		console.log(selectedDailyPlan);
 		if (selectedDailyPlan.length == 0) {
 			$allPlanDetail.dailyPlanList.push({ date: selectedDate, planList: [] });
 			return getDatePlanList(selectedDate);
